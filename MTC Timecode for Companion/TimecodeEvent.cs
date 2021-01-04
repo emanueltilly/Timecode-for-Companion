@@ -23,6 +23,8 @@ namespace MTC_Timecode_for_Companion
         private int bank = 1;
         private bool enabled = true;
         private bool executed = false;
+        private bool oneShot = false;
+        private Int32 lastExecution = 0;
 
         public TimecodeEvent()
         {
@@ -90,6 +92,18 @@ namespace MTC_Timecode_for_Companion
             get { return realFrame; }
             set { }
             
+        }
+        [XmlAttribute(DataType = "boolean", AttributeName = "OneShot")]
+        public bool OneShot
+        {
+            get { return oneShot; }
+            set { oneShot = value; }
+        }
+        //[XmlAttribute(DataType = "Int32", AttributeName = "LastExecution")]
+        public Int32 LastExecution
+        {
+            get { return lastExecution; }
+            set { lastExecution = value; }
         }
 
         public void updateRealFrame()

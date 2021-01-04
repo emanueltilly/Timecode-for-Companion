@@ -46,5 +46,11 @@ namespace MTC_Timecode_for_Companion
 
             return result;
         }
+
+        public static Int32 getUnixTimestamp()
+        {
+            Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            return unixTimestamp;
+        }
     }
 }
