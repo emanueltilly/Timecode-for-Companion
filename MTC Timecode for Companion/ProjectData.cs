@@ -16,6 +16,8 @@ namespace MTC_Timecode_for_Companion
 
         public int fpsDropdownIndex = -1;
 
+        public string companionIP = "127.0.0.1";
+
 
 
         public void SaveToFile(string fileName)

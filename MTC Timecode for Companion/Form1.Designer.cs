@@ -46,6 +46,10 @@
             this.toggleTimecodeButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.warningFlashTimer = new System.Windows.Forms.Timer(this.components);
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.companionIPbox = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -85,9 +89,13 @@
             this.inputdevice,
             this.toolStripLabel2,
             this.fpsDropdown,
+            this.toolStripSeparator2,
+            this.toolStripLabel3,
+            this.companionIPbox,
+            this.toolStripSeparator3,
             this.applyTCbutton,
-            this.toggleTimecodeButton,
-            this.toolStripSeparator2});
+            this.toolStripSeparator4,
+            this.toggleTimecodeButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(694, 25);
@@ -146,6 +154,7 @@
             // 
             // fpsDropdown
             // 
+            this.fpsDropdown.AutoSize = false;
             this.fpsDropdown.Items.AddRange(new object[] {
             "24",
             "25",
@@ -153,7 +162,7 @@
             "50",
             "60"});
             this.fpsDropdown.Name = "fpsDropdown";
-            this.fpsDropdown.Size = new System.Drawing.Size(121, 25);
+            this.fpsDropdown.Size = new System.Drawing.Size(50, 25);
             this.fpsDropdown.Click += new System.EventHandler(this.toolStripButton1_Click_1);
             this.fpsDropdown.TextChanged += new System.EventHandler(this.fpsDropdown_TextChanged);
             // 
@@ -163,8 +172,8 @@
             this.applyTCbutton.Image = ((System.Drawing.Image)(resources.GetObject("applyTCbutton.Image")));
             this.applyTCbutton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.applyTCbutton.Name = "applyTCbutton";
-            this.applyTCbutton.Size = new System.Drawing.Size(86, 22);
-            this.applyTCbutton.Text = "Apply and run";
+            this.applyTCbutton.Size = new System.Drawing.Size(90, 22);
+            this.applyTCbutton.Text = "Apply and lock";
             this.applyTCbutton.Click += new System.EventHandler(this.applyTCbutton_Click);
             // 
             // toggleTimecodeButton
@@ -174,8 +183,8 @@
             this.toggleTimecodeButton.Image = ((System.Drawing.Image)(resources.GetObject("toggleTimecodeButton.Image")));
             this.toggleTimecodeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toggleTimecodeButton.Name = "toggleTimecodeButton";
-            this.toggleTimecodeButton.Size = new System.Drawing.Size(62, 22);
-            this.toggleTimecodeButton.Text = "Toggle TC";
+            this.toggleTimecodeButton.Size = new System.Drawing.Size(46, 22);
+            this.toggleTimecodeButton.Text = "Toggle";
             this.toggleTimecodeButton.Click += new System.EventHandler(this.toolStripButton1_Click_1);
             // 
             // toolStripSeparator2
@@ -186,6 +195,28 @@
             // warningFlashTimer
             // 
             this.warningFlashTimer.Tick += new System.EventHandler(this.warningFlashTimer_Tick);
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(86, 22);
+            this.toolStripLabel3.Text = "Companion IP:";
+            // 
+            // companionIPbox
+            // 
+            this.companionIPbox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.companionIPbox.Name = "companionIPbox";
+            this.companionIPbox.Size = new System.Drawing.Size(100, 25);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // Form1
             // 
@@ -224,6 +255,10 @@
         private System.Windows.Forms.ToolStripComboBox fpsDropdown;
         private System.Windows.Forms.ToolStripButton applyTCbutton;
         private System.Windows.Forms.Timer warningFlashTimer;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripTextBox companionIPbox;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
     }
 }
 

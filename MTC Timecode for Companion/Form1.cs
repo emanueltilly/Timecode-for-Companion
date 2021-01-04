@@ -70,6 +70,8 @@ namespace MTC_Timecode_for_Companion
             reloadDataGridView();
             fpsDropdown.SelectedIndex = data.fpsDropdownIndex;
 
+            companionIPbox.Text = data.companionIP;
+
             dataGridView1.Columns[0].Width = 50;
             dataGridView1.Columns[1].Width = 50;
             dataGridView1.Columns[2].Width = 50;
@@ -122,6 +124,9 @@ namespace MTC_Timecode_for_Companion
                             //EXECUTE COMMAND
                             Console.WriteLine("");
                             Console.WriteLine("EXEC EVENT " + evnt.EventName);
+
+                            companion.pushButton(evnt.Page, evnt.Bank);
+
                             if (evnt.OneShot == true) { evnt.Executed = true; } else
                             {
                                 evnt.LastExecution = TimestampTools.getUnixTimestamp();
@@ -226,13 +231,13 @@ namespace MTC_Timecode_for_Companion
 
         private void applyTCbutton_Click(object sender, EventArgs e)
         {
-            if (inputdevice.SelectedIndex >= 0 && fpsDropdown.SelectedIndex >= 0)
+            if (inputdevice.SelectedIndex >= 0 && fpsDropdown.SelectedIndex >= 0 && companionIPbox.Text != null)
             {
                 recalculateRealFrameForList();
                 resetExecutedForList();
 
-                
-
+                data.companionIP = companionIPbox.Text;
+                companion.Ip = data.companionIP;
 
                 mtc.inputDevice = MidiTimecode.getInputDevices()[inputdevice.SelectedIndex];
                 mtc.inputFPS = int.Parse(fpsDropdown.Text);
@@ -241,6 +246,7 @@ namespace MTC_Timecode_for_Companion
                 inputdevice.Enabled = false;
                 fpsDropdown.Enabled = false;
                 applyTCbutton.Enabled = false;
+                companionIPbox.Enabled = false;
                 toggleTimecodeButton.Enabled = true;
                 //dataGridView1.ReadOnly = true;
                 

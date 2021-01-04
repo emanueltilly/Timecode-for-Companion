@@ -33,10 +33,16 @@ namespace MTC_Timecode_for_Companion
 
         public int[] updateLiveTC(int[] sourceTC)
         {
+            //Check for big changes
+            if ((sourceTC[0] > (historyStamp[4,0] + 2)) || (sourceTC[0] < (historyStamp[4, 0] - 2))) { historyStamp = Fill2DArray(historyStamp); }
+            if ((sourceTC[1] > (historyStamp[4, 1] + 2)) || (sourceTC[1] < (historyStamp[4, 1] - 2))) { historyStamp = Fill2DArray(historyStamp); }
+            if ((sourceTC[2] > (historyStamp[4, 2] + 10)) || (sourceTC[2] < (historyStamp[4, 2] - 10))) { historyStamp = Fill2DArray(historyStamp); }
+
+
             int[] result = new int[4] { 0, 0, 0, 0 };
 
             //Hour
-            if (sourceTC[0] > historyStamp[4,0] && sourceTC[0] > historyStamp[3, 0] && sourceTC[0] > historyStamp[2, 0] && sourceTC[0] > historyStamp[1, 0] && sourceTC[0] > historyStamp[0, 0])
+            if (sourceTC[0] == 0 || (sourceTC[0] > historyStamp[4, 0] && sourceTC[0] > historyStamp[3, 0] && sourceTC[0] > historyStamp[2, 0] && sourceTC[0] > historyStamp[1, 0] && sourceTC[0] > historyStamp[0, 0]))
             {
                 result[0] = sourceTC[0];
             } else
@@ -44,7 +50,7 @@ namespace MTC_Timecode_for_Companion
                 result[0] = historyStamp[4, 0];
             }
             //Minute
-            if (sourceTC[1] > historyStamp[4, 1] && sourceTC[1] > historyStamp[3, 1] && sourceTC[1] > historyStamp[2, 1] && sourceTC[1] > historyStamp[1, 1] && sourceTC[1] > historyStamp[0, 1])
+            if (sourceTC[1] == 0 || (sourceTC[1] > historyStamp[4, 1] && sourceTC[1] > historyStamp[3, 1] && sourceTC[1] > historyStamp[2, 1] && sourceTC[1] > historyStamp[1, 1] && sourceTC[1] > historyStamp[0, 1]))
             {
                 result[1] = sourceTC[1];
             }
@@ -53,14 +59,14 @@ namespace MTC_Timecode_for_Companion
                 result[1] = historyStamp[4, 1];
             }
             //Second
-            if (sourceTC[2] > historyStamp[4, 2] && sourceTC[2] > historyStamp[3, 2] && sourceTC[2] > historyStamp[2, 2] && sourceTC[2] > historyStamp[1, 2] && sourceTC[2] > historyStamp[0, 2])
+            if (sourceTC[2] == 0 || (sourceTC[2] > historyStamp[4, 2] && sourceTC[2] > historyStamp[3, 2] && sourceTC[2] > historyStamp[2, 2] && sourceTC[2] > historyStamp[1, 2] && sourceTC[2] > historyStamp[0, 2]))
             {
                 result[2] = sourceTC[2];
                 if (result[2] != prevSec) { prevSec = result[2]; currentFrame = 0; }
             }
             else
             {
-                result[2] = historyStamp[4, 2];
+                result[2] = historyStamp[4, 2]; 
             }
             //Frame
             result[3] = currentFrame;
@@ -68,7 +74,7 @@ namespace MTC_Timecode_for_Companion
 
 
             //Add new value to history
-            addToHistoryStamp(sourceTC);
+            addToHistoryStamp(result);
 
             return result;
         }
