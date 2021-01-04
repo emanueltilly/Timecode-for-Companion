@@ -97,7 +97,7 @@ namespace MTC_Timecode_for_Companion
         public bool OneShot
         {
             get { return oneShot; }
-            set { oneShot = value; }
+            set { oneShot = value; executed = false; }
         }
         //[XmlAttribute(DataType = "Int32", AttributeName = "LastExecution")]
         public Int32 LastExecution

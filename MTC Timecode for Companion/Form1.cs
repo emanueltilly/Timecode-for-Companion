@@ -22,6 +22,8 @@ namespace MTC_Timecode_for_Companion
 
         TimecodeEvent nextEvent = new TimecodeEvent();
 
+        Companion companion = new Companion();
+
         private bool toggleTC = true;
 
         private int[] liveTC = new int[4] { 0, 0, 0, 0 };
@@ -240,7 +242,7 @@ namespace MTC_Timecode_for_Companion
                 fpsDropdown.Enabled = false;
                 applyTCbutton.Enabled = false;
                 toggleTimecodeButton.Enabled = true;
-                dataGridView1.ReadOnly = true;
+                //dataGridView1.ReadOnly = true;
                 
 
                 tcSmooth.initialize(data, int.Parse(fpsDropdown.Text));
