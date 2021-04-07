@@ -17,12 +17,9 @@ namespace MTC_Timecode_for_Companion
         MidiTimecode mtc;
 
         ProjectData data = new ProjectData();
-
-        TimecodeSmoother tcSmooth = new TimecodeSmoother();
-
-        TimecodeEvent nextEvent = new TimecodeEvent();
-
-        Companion companion = new Companion();
+        readonly TimecodeSmoother tcSmooth = new TimecodeSmoother();
+        readonly TimecodeEvent nextEvent = new TimecodeEvent();
+        readonly Companion companion = new Companion();
 
         private bool toggleTC = true;
 
@@ -46,7 +43,7 @@ namespace MTC_Timecode_for_Companion
             nextEvent.Enabled = false;
 
             mtc = new MidiTimecode();
-            var devices = MidiTimecode.getInputDevices();
+            var devices = MidiTimecode.GetInputDevices();
             foreach (InputDevice device in devices)
                 inputdevice.Items.Add(device.Name);
 
@@ -61,13 +58,13 @@ namespace MTC_Timecode_for_Companion
                 loop++;
             }*/
 
-            loadGUIfromData();
+            LoadGUIfromData();
 
         }
 
-        private void loadGUIfromData()
+        private void LoadGUIfromData()
         {
-            reloadDataGridView();
+            ReloadDataGridView();
             fpsDropdown.SelectedIndex = data.fpsDropdownIndex;
 
             companionIPbox.Text = data.companionIP;
@@ -87,27 +84,29 @@ namespace MTC_Timecode_for_Companion
 
         }
 
-        private void reloadDataGridView()
+        private void ReloadDataGridView()
         {
             //Link list to data grid view
-            var source = new BindingSource();
-            source.DataSource = data.TimecodeEventList;
+            BindingSource source = new BindingSource
+            {
+                DataSource = data.TimecodeEventList
+            };
             dataGridView1.DataSource = source;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
            
             
         }
 
-        private void tcTimer_Tick(object sender, EventArgs e)
+        private void TcTimer_Tick(object sender, EventArgs e)
         {
             //Update the local time variable
-            liveTCrolling = (mtc.timeSnap.getLastUpdate().TotalSeconds < 1.5d);
-            if (liveTCrolling == true) { liveTC = tcSmooth.updateLiveTC(mtc.timeSnap.getNowTimecode(true)); }
-            currentClock = TimestampTools.getUnixTimestamp();
-            int liveRealFrame = TimestampTools.convertTimestampToFrames(liveTC);
+            liveTCrolling = (mtc.timeSnap.GetLastUpdate().TotalSeconds < 1.5d);
+            if (liveTCrolling == true) { liveTC = tcSmooth.UpdateLiveTC(mtc.timeSnap.GetNowTimecode(true)); }
+            currentClock = TimestampTools.GetUnixTimestamp();
+            int liveRealFrame = TimestampTools.ConvertTimestampToFrames(liveTC);
             int evntCounter = 0;
             //See if any lines can be executed
             foreach (TimecodeEvent evnt in data.TimecodeEventList)
@@ -116,7 +115,7 @@ namespace MTC_Timecode_for_Companion
                 if ((currentClock - evnt.LastExecution) > 2 )
                 {
                     //Check if event is executed
-                    if (((evnt.Executed == true) ? false : true) && evnt.Enabled == true && data.TimecodeEventList.Count > 0)
+                    if (evnt.Executed != true && evnt.Enabled == true && data.TimecodeEventList.Count > 0)
                     {
                         //If event is on this frame or has been missed in the last 10 frames
                         if (evnt.RealFrame == liveRealFrame || (evnt.RealFrame < liveRealFrame && evnt.RealFrame > (liveRealFrame - 10)))
@@ -125,11 +124,11 @@ namespace MTC_Timecode_for_Companion
                             Console.WriteLine("");
                             Console.WriteLine("EXEC EVENT " + evnt.EventName);
 
-                            companion.pushButton(evnt.Page, evnt.Bank);
+                            companion.PushButton(evnt.Page, evnt.Bank);
 
                             if (evnt.OneShot == true) { evnt.Executed = true; } else
                             {
-                                evnt.LastExecution = TimestampTools.getUnixTimestamp();
+                                evnt.LastExecution = TimestampTools.GetUnixTimestamp();
                             }
                             
 
@@ -147,7 +146,7 @@ namespace MTC_Timecode_for_Companion
 
 
             //GUI
-            timecode_lbl.Text = TimestampTools.timecodeToString(liveTC);
+            timecode_lbl.Text = TimestampTools.TimecodeToString(liveTC);
             //timecode_lbl.ForeColor = liveTCrolling ? Color.Lime : Color.DarkRed;
             if (liveTCrolling == false) { warningFlashTimer.Enabled = true; } else { warningFlashTimer.Enabled = false; timecode_lbl.ForeColor = Color.Black; }
             
@@ -155,23 +154,23 @@ namespace MTC_Timecode_for_Companion
             
         }
 
-        private void toggleTimecodeButton_Click(object sender, EventArgs e)
+        private void ToggleTimecodeButton_Click(object sender, EventArgs e)
         {
-            toggleTC = (toggleTC ? false : true);
-            mtc.timeSnap.toggleCounting(toggleTC);
+            toggleTC = (toggleTC != true);
+            mtc.timeSnap.ToggleCounting(toggleTC);
         }
 
-        private void saveProjectButton_Click(object sender, EventArgs e)
+        private void SaveProjectButton_Click(object sender, EventArgs e)
         {
             
         }
 
-        private void openProjectButton_Click(object sender, EventArgs e)
+        private void OpenProjectButton_Click(object sender, EventArgs e)
         {
          
         }
 
-        private void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog SaveFileDialog1 = new SaveFileDialog
             {
@@ -189,7 +188,7 @@ namespace MTC_Timecode_for_Companion
             }
         }
 
-        private void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openDialog = new OpenFileDialog
             {
@@ -201,48 +200,48 @@ namespace MTC_Timecode_for_Companion
             {
 
                 data = ProjectData.LoadFromFile(openDialog.FileName);
-                loadGUIfromData();
+                LoadGUIfromData();
 
             }
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void ToolStripButton1_Click(object sender, EventArgs e)
         {
            
         }
 
-        private void inputdevice_TextChanged(object sender, EventArgs e)
+        private void Inputdevice_TextChanged(object sender, EventArgs e)
         {
             
         }
 
-        private void toolStripButton1_Click_1(object sender, EventArgs e)
+        private void ToolStripButton1_Click_1(object sender, EventArgs e)
         {
-            toggleTC = (toggleTC ? false : true);
-            mtc.timeSnap.toggleCounting(toggleTC);
+            toggleTC = (toggleTC != true);
+            mtc.timeSnap.ToggleCounting(toggleTC);
         }
 
-        private void fpsDropdown_TextChanged(object sender, EventArgs e)
+        private void FpsDropdown_TextChanged(object sender, EventArgs e)
         {
             data.fpsDropdownIndex = fpsDropdown.SelectedIndex;
-            TimestampTools.setFPS(int.Parse(fpsDropdown.Text));
+            TimestampTools.SetFPS(int.Parse(fpsDropdown.Text));
             
         }
 
-        private void applyTCbutton_Click(object sender, EventArgs e)
+        private void ApplyTCbutton_Click(object sender, EventArgs e)
         {
             if (inputdevice.SelectedIndex >= 0 && fpsDropdown.SelectedIndex >= 0 && companionIPbox.Text != null)
             {
-                recalculateRealFrameForList();
-                resetExecutedForList();
+                RecalculateRealFrameForList();
+                ResetExecutedForList();
 
                 data.companionIP = companionIPbox.Text;
                 companion.Ip = data.companionIP;
 
-                mtc.inputDevice = MidiTimecode.getInputDevices()[inputdevice.SelectedIndex];
+                mtc.inputDevice = MidiTimecode.GetInputDevices()[inputdevice.SelectedIndex];
                 mtc.inputFPS = int.Parse(fpsDropdown.Text);
                 mtc.inputOffset = 0;
-                mtc.initialize();
+                mtc.Initialize();
                 inputdevice.Enabled = false;
                 fpsDropdown.Enabled = false;
                 applyTCbutton.Enabled = false;
@@ -251,32 +250,32 @@ namespace MTC_Timecode_for_Companion
                 //dataGridView1.ReadOnly = true;
                 
 
-                tcSmooth.initialize(data, int.Parse(fpsDropdown.Text));
+                tcSmooth.Initialize(int.Parse(fpsDropdown.Text));
 
-                tcTimer.Interval = tcSmooth.fpsToMs(int.Parse(fpsDropdown.Text));
+                tcTimer.Interval = tcSmooth.FpsToMs(int.Parse(fpsDropdown.Text));
                 tcTimer.Enabled = true;
             }
         }
 
-        private void recalculateRealFrameForList()
+        private void RecalculateRealFrameForList()
         {
             foreach (TimecodeEvent e1 in data.TimecodeEventList)
             {
-                e1.updateRealFrame();
+                e1.UpdateRealFrame();
                 
                 
             }
         }
-        private void resetExecutedForList()
+        private void ResetExecutedForList()
         {
             foreach (TimecodeEvent e2 in data.TimecodeEventList)
             {
-                e2.resetExecuted();
+                e2.ResetExecuted();
                
             }
         }
 
-        private void warningFlashTimer_Tick(object sender, EventArgs e)
+        private void WarningFlashTimer_Tick(object sender, EventArgs e)
         {
             timecode_lbl.ForeColor = ((timecode_lbl.ForeColor == Color.Red) ? Color.Black : Color.Red);
         }

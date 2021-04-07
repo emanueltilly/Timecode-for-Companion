@@ -67,7 +67,7 @@
             // tcTimer
             // 
             this.tcTimer.Interval = 20;
-            this.tcTimer.Tick += new System.EventHandler(this.tcTimer_Tick);
+            this.tcTimer.Tick += new System.EventHandler(this.TcTimer_Tick);
             // 
             // dataGridView1
             // 
@@ -119,14 +119,14 @@
             this.openProjectToolStripMenuItem.Name = "openProjectToolStripMenuItem";
             this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.openProjectToolStripMenuItem.Text = "Open Project";
-            this.openProjectToolStripMenuItem.Click += new System.EventHandler(this.openProjectToolStripMenuItem_Click);
+            this.openProjectToolStripMenuItem.Click += new System.EventHandler(this.OpenProjectToolStripMenuItem_Click);
             // 
             // saveProjectToolStripMenuItem
             // 
             this.saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
             this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.saveProjectToolStripMenuItem.Text = "Save Project";
-            this.saveProjectToolStripMenuItem.Click += new System.EventHandler(this.saveProjectToolStripMenuItem_Click);
+            this.saveProjectToolStripMenuItem.Click += new System.EventHandler(this.SaveProjectToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -144,7 +144,7 @@
             this.inputdevice.DropDownWidth = 200;
             this.inputdevice.Name = "inputdevice";
             this.inputdevice.Size = new System.Drawing.Size(121, 25);
-            this.inputdevice.TextChanged += new System.EventHandler(this.inputdevice_TextChanged);
+            this.inputdevice.TextChanged += new System.EventHandler(this.Inputdevice_TextChanged);
             // 
             // toolStripLabel2
             // 
@@ -163,8 +163,8 @@
             "60"});
             this.fpsDropdown.Name = "fpsDropdown";
             this.fpsDropdown.Size = new System.Drawing.Size(50, 25);
-            this.fpsDropdown.Click += new System.EventHandler(this.toolStripButton1_Click_1);
-            this.fpsDropdown.TextChanged += new System.EventHandler(this.fpsDropdown_TextChanged);
+            this.fpsDropdown.Click += new System.EventHandler(this.ToolStripButton1_Click_1);
+            this.fpsDropdown.TextChanged += new System.EventHandler(this.FpsDropdown_TextChanged);
             // 
             // applyTCbutton
             // 
@@ -174,7 +174,7 @@
             this.applyTCbutton.Name = "applyTCbutton";
             this.applyTCbutton.Size = new System.Drawing.Size(90, 22);
             this.applyTCbutton.Text = "Apply and lock";
-            this.applyTCbutton.Click += new System.EventHandler(this.applyTCbutton_Click);
+            this.applyTCbutton.Click += new System.EventHandler(this.ApplyTCbutton_Click);
             // 
             // toggleTimecodeButton
             // 
@@ -185,7 +185,7 @@
             this.toggleTimecodeButton.Name = "toggleTimecodeButton";
             this.toggleTimecodeButton.Size = new System.Drawing.Size(46, 22);
             this.toggleTimecodeButton.Text = "Toggle";
-            this.toggleTimecodeButton.Click += new System.EventHandler(this.toolStripButton1_Click_1);
+            this.toggleTimecodeButton.Click += new System.EventHandler(this.ToolStripButton1_Click_1);
             // 
             // toolStripSeparator2
             // 
@@ -194,7 +194,7 @@
             // 
             // warningFlashTimer
             // 
-            this.warningFlashTimer.Tick += new System.EventHandler(this.warningFlashTimer_Tick);
+            this.warningFlashTimer.Tick += new System.EventHandler(this.WarningFlashTimer_Tick);
             // 
             // toolStripLabel3
             // 

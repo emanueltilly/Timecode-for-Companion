@@ -11,16 +11,16 @@ namespace MTC_Timecode_for_Companion
     {
         private int[,] historyStamp = new int[5, 4];
         private int prevSec = 999;
-        private Timer frameTimer = new Timer(1000);
+        private readonly Timer frameTimer = new Timer(1000);
         private int localFPS = 25;
         private int currentFrame = 0;
 
-        public void initialize(ProjectData data, int fps)
+        public void Initialize(int fps)
         {
             historyStamp = Fill2DArray(historyStamp);
             localFPS = fps;
             frameTimer.AutoReset = true;
-            frameTimer.Interval = fpsToMs(fps);
+            frameTimer.Interval = FpsToMs(fps);
             frameTimer.Enabled = true;
             frameTimer.Elapsed += FrameTimer_Elapsed;
         }
@@ -31,7 +31,7 @@ namespace MTC_Timecode_for_Companion
             if ((currentFrame + 1) < localFPS) { currentFrame++;  }
         }
 
-        public int[] updateLiveTC(int[] sourceTC)
+        public int[] UpdateLiveTC(int[] sourceTC)
         {
             //Check for big changes
             if ((sourceTC[0] > (historyStamp[4,0] + 2)) || (sourceTC[0] < (historyStamp[4, 0] - 2))) { historyStamp = Fill2DArray(historyStamp); }
@@ -74,12 +74,12 @@ namespace MTC_Timecode_for_Companion
 
 
             //Add new value to history
-            addToHistoryStamp(result);
+            AddToHistoryStamp(result);
 
             return result;
         }
 
-        private void addToHistoryStamp(int[] newTC)
+        private void AddToHistoryStamp(int[] newTC)
         {
             int rowCount = 0;
             int colCount = 0;
@@ -103,7 +103,7 @@ namespace MTC_Timecode_for_Companion
 
         }
 
-        public int fpsToMs(int fps)
+        public int FpsToMs(int fps)
         {
             int result = (int)Math.Floor((decimal)1000 / (decimal)fps);
             return result;

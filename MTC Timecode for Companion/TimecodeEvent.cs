@@ -34,25 +34,25 @@ namespace MTC_Timecode_for_Companion
         public int Hour
         {
             get { return hour; }
-            set { hour = value; updateRealFrame(); }
+            set { hour = value; UpdateRealFrame(); }
         }
         [XmlAttribute(DataType = "int", AttributeName = "Minute")]
         public int Minute
         {
             get { return minute; }
-            set { minute = value; updateRealFrame(); }
+            set { minute = value; UpdateRealFrame(); }
         }
         [XmlAttribute(DataType = "int", AttributeName = "Second")]
         public int Second
         {
             get { return second; }
-            set { second = value; updateRealFrame(); }
+            set { second = value; UpdateRealFrame(); }
         }
         [XmlAttribute(DataType = "int", AttributeName = "Frame")]
         public int Frame
         {
             get { return frame; }
-            set { frame = value; updateRealFrame(); }
+            set { frame = value; UpdateRealFrame(); }
         }
 
 
@@ -106,13 +106,13 @@ namespace MTC_Timecode_for_Companion
             set { lastExecution = value; }
         }
 
-        public void updateRealFrame()
+        public void UpdateRealFrame()
         {
             int[] timestamp = new int[4] { hour, minute, second, frame };
-            realFrame = TimestampTools.convertTimestampToFrames(timestamp);
+            realFrame = TimestampTools.ConvertTimestampToFrames(timestamp);
         }
 
-        public void resetExecuted()
+        public void ResetExecuted()
         {
             executed = false;
         }

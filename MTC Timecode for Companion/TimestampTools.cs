@@ -9,8 +9,8 @@ namespace MTC_Timecode_for_Companion
     class TimestampTools
     {
         private static int localFPS = 25;
-        public static void setFPS(int fps) { localFPS = fps; }
-        public static string timecodeToString(int[] timecode)
+        public static void SetFPS(int fps) { localFPS = fps; }
+        public static string TimecodeToString(int[] timecode)
         {
             if (timecode.Length != 4) { Console.WriteLine("Error converting timecode to string! Wrong array length."); return "00:00:00:00"; }
 
@@ -31,23 +31,23 @@ namespace MTC_Timecode_for_Companion
             
         }
 
-        public static int convertTimestampToFrames(int[] timecode)
+        public static int ConvertTimestampToFrames(int[] timecode)
         {
             int result = 0;
 
             //Hour
-            result = (result + (timecode[0] * (localFPS * 3600)));
+            result += (timecode[0] * (localFPS * 3600));
             //Minute
-            result = (result + (timecode[1] * (localFPS * 60)));
+            result += (timecode[1] * (localFPS * 60));
             //Second
-            result = (result + (timecode[2] * localFPS));
+            result += (timecode[2] * localFPS);
             //Frame
-            result = (result + timecode[3]);
+            result += timecode[3];
 
             return result;
         }
 
-        public static Int32 getUnixTimestamp()
+        public static Int32 GetUnixTimestamp()
         {
             Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
             return unixTimestamp;

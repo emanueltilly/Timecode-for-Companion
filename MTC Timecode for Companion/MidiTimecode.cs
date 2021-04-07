@@ -6,7 +6,7 @@ using Melanchall.DryWetMidi.Core;
 class MidiTimecode
 {
     // Get Device List
-    public static InputDevice[] getInputDevices() { return InputDevice.GetAll().ToArray(); }
+    public static InputDevice[] GetInputDevices() { return InputDevice.GetAll().ToArray(); }
 
     // Public Settings
     public InputDevice inputDevice;
@@ -16,12 +16,12 @@ class MidiTimecode
 
     // Time Data
     byte flsb, fmsb, slsb, smsb, mlsb, mmsb, hlsb, hmsb;
-    bool[] valuesSet = { false, false, false, false, false, false, false, false };
+    readonly bool[] valuesSet = { false, false, false, false, false, false, false, false };
 
     public MidiTimecode() { timeSnap = new TimeSnap(0, 0); }
 
     // Initialize Listener
-    public void initialize() // Run After Ever Settings Change And On Start
+    public void Initialize() // Run After Ever Settings Change And On Start
     {
         if (inputDevice != null && inputDevice.IsListeningForEvents)
         {
@@ -54,7 +54,7 @@ class MidiTimecode
                 int seconds = Convert.ToInt32(Convert.ToString(smsb, 2).PadLeft(4, '0') + Convert.ToString(slsb, 2).PadLeft(4, '0'), 2);
                 int minutes = Convert.ToInt32(Convert.ToString(mmsb, 2).PadLeft(4, '0') + Convert.ToString(mlsb, 2).PadLeft(4, '0'), 2);
                 int hours = Convert.ToInt32(Convert.ToString(hlsb, 2).PadLeft(8, '0'), 2);
-                timeSnap.update(hours, minutes, seconds, frames);
+                timeSnap.Update(hours, minutes, seconds, frames);
                 for (int i = 0; i < valuesSet.Length; i++) valuesSet[i] = false;
             }
         }
@@ -77,7 +77,7 @@ class TimeSnap
         this.offset = offset; // Set The TimeSnap Offset
     }
 
-    public void update(double hours, double minutes, double seconds, double frames)
+    public void Update(double hours, double minutes, double seconds, double frames)
     {
         double updatedTc =
             hours * 60d * 60d * 1000d +     // Convert The Hours    Into Milliseconds
@@ -88,17 +88,17 @@ class TimeSnap
         double tcDiff = Math.Abs(Math.Floor(timecode - updatedTc)); // Timecode Difference From Last Updated Value
         if (tcDiff != 933 && tcDiff != 466 && tcDiff != 400)
         {
-            double actualTcDiff = Math.Abs(updatedTc - getNowTime().TotalMilliseconds); // Timecode Difference From Current Guessed Time
+            double actualTcDiff = Math.Abs(updatedTc - GetNowTime().TotalMilliseconds); // Timecode Difference From Current Guessed Time
             if (actualTcDiff > 50d) // Only Allow Updates Over 50ms
             {
                 timecode = updatedTc; // Set The Updated Timecode
                 cleared = false; // Set Cleared To False
             }
-            updateTime = milliTime(); // Set The Update Time
+            updateTime = MilliTime(); // Set The Update Time
         }
     }
 
-    public void update(TimeSnap ts)
+    public void Update(TimeSnap ts)
     {
         this.fps = ts.fps;
         this.timecode = ts.timecode;
@@ -107,30 +107,30 @@ class TimeSnap
         this.cleared = ts.cleared;
     }
 
-    public void setOffset(double offset)
+    public void SetOffset(double offset)
     {
         this.offset = offset;
     }
 
-    public void toggleCounting(bool run = false)
+    public void ToggleCounting(bool run = false)
     {
         running = run;
         pausedValue = timecode;
     }
 
     // Predicted time is calculated from last update. False gives last update.
-    public TimeSpan getNowTime(bool predicted = true) // HH:MM:SS:MS
+    public TimeSpan GetNowTime(bool predicted = true) // HH:MM:SS:MS
     {
         if (!running) return TimeSpan.FromMilliseconds(pausedValue);
         if (cleared) return TimeSpan.FromMilliseconds(0);
-        return TimeSpan.FromMilliseconds(timecode + (predicted ? (milliTime() - updateTime) + offset : 0));
+        return TimeSpan.FromMilliseconds(timecode + (predicted ? (MilliTime() - updateTime) + offset : 0));
     }
 
     // Predicted time is calculated from last update. False gives last update.
-    public int[] getNowTimecode(bool predicted = true) // HH:MM:SS:FF
+    public int[] GetNowTimecode(bool predicted = true) // HH:MM:SS:FF
     {
         if (cleared) return new int[] { 0, 0, 0, 0 };
-        TimeSpan now = getNowTime(predicted);
+        TimeSpan now = GetNowTime(predicted);
         return new int[]
         {
             now.Hours, now.Minutes, now.Seconds,
@@ -139,11 +139,11 @@ class TimeSnap
     }
 
     // Get Time Since Last Update
-    public TimeSpan getLastUpdate()
+    public TimeSpan GetLastUpdate()
     {
-        return TimeSpan.FromMilliseconds(milliTime() - updateTime);
+        return TimeSpan.FromMilliseconds(MilliTime() - updateTime);
     }
 
-    private double milliTime() // Returns The Time Since First Of January 2020
+    private double MilliTime() // Returns The Time Since First Of January 2020
     { return (DateTime.Now - (new DateTime(2020, 1, 1, 0, 0, 0, 0))).TotalMilliseconds; }
 }

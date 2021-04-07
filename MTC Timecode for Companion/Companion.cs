@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
-using System.Threading.Tasks;
 using System.Net;
 
 namespace MTC_Timecode_for_Companion
@@ -26,7 +25,7 @@ namespace MTC_Timecode_for_Companion
             set { port = value; }
         }
 
-        public void pushButton(int page, int bank)
+        public void PushButton(int page, int bank)
         {
             
                 Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
@@ -48,6 +47,7 @@ namespace MTC_Timecode_for_Companion
                 catch (Exception e)
                 {
                     Console.WriteLine("Error sending UDP packet to companion");
+                    Console.WriteLine(e);
                 }
 
 
@@ -67,7 +67,7 @@ namespace MTC_Timecode_for_Companion
         //TCP ISSUE
         //
         //Companion gets connection, but no message. Works with stand alone TCP viewer
-        private void sendTCP(string message)        
+        private void SendTCP(string message)        
         {
             //---data to send to the server---
             string textToSend = message;
