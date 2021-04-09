@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>dinconnector.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Melanchall.DryWetMidi, Version=5.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Melanchall.DryWetMidi.5.1.2\lib\net45\Melanchall.DryWetMidi.dll</HintPath>
@@ -87,6 +90,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dinconnector.ico" />
+    <Content Include="icons\dinconnector.ico" />
+    <Content Include="icons\dinconnector.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

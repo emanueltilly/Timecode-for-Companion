@@ -42,23 +42,31 @@
             this.inputdevice = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.fpsDropdown = new System.Windows.Forms.ToolStripComboBox();
-            this.applyTCbutton = new System.Windows.Forms.ToolStripButton();
-            this.toggleTimecodeButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.warningFlashTimer = new System.Windows.Forms.Timer(this.components);
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.companionIPbox = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.applyTCbutton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toggleTimecodeButton = new System.Windows.Forms.ToolStripButton();
+            this.warningFlashTimer = new System.Windows.Forms.Timer(this.components);
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteSelectedItemInListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // timecode_lbl
             // 
+            this.timecode_lbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.timecode_lbl.AutoSize = true;
             this.timecode_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timecode_lbl.Location = new System.Drawing.Point(12, 37);
+            this.timecode_lbl.Location = new System.Drawing.Point(223, 3);
             this.timecode_lbl.Name = "timecode_lbl";
             this.timecode_lbl.Size = new System.Drawing.Size(210, 39);
             this.timecode_lbl.TabIndex = 2;
@@ -74,10 +82,11 @@
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridView1.ColumnHeadersHeight = 30;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 174);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridView1.Size = new System.Drawing.Size(670, 300);
+            this.dataGridView1.Size = new System.Drawing.Size(654, 264);
             this.dataGridView1.TabIndex = 4;
             // 
             // toolStrip1
@@ -98,7 +107,7 @@
             this.toggleTimecodeButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(694, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(654, 25);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -107,7 +116,9 @@
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openProjectToolStripMenuItem,
-            this.saveProjectToolStripMenuItem});
+            this.saveProjectToolStripMenuItem,
+            this.toolStripSeparator5,
+            this.deleteSelectedItemInListToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -117,14 +128,14 @@
             // openProjectToolStripMenuItem
             // 
             this.openProjectToolStripMenuItem.Name = "openProjectToolStripMenuItem";
-            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.openProjectToolStripMenuItem.Text = "Open Project";
             this.openProjectToolStripMenuItem.Click += new System.EventHandler(this.OpenProjectToolStripMenuItem_Click);
             // 
             // saveProjectToolStripMenuItem
             // 
             this.saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
-            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.saveProjectToolStripMenuItem.Text = "Save Project";
             this.saveProjectToolStripMenuItem.Click += new System.EventHandler(this.SaveProjectToolStripMenuItem_Click);
             // 
@@ -162,39 +173,14 @@
             "50",
             "60"});
             this.fpsDropdown.Name = "fpsDropdown";
-            this.fpsDropdown.Size = new System.Drawing.Size(50, 25);
+            this.fpsDropdown.Size = new System.Drawing.Size(50, 23);
             this.fpsDropdown.Click += new System.EventHandler(this.ToolStripButton1_Click_1);
             this.fpsDropdown.TextChanged += new System.EventHandler(this.FpsDropdown_TextChanged);
-            // 
-            // applyTCbutton
-            // 
-            this.applyTCbutton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.applyTCbutton.Image = ((System.Drawing.Image)(resources.GetObject("applyTCbutton.Image")));
-            this.applyTCbutton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.applyTCbutton.Name = "applyTCbutton";
-            this.applyTCbutton.Size = new System.Drawing.Size(90, 22);
-            this.applyTCbutton.Text = "Apply and lock";
-            this.applyTCbutton.Click += new System.EventHandler(this.ApplyTCbutton_Click);
-            // 
-            // toggleTimecodeButton
-            // 
-            this.toggleTimecodeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toggleTimecodeButton.Enabled = false;
-            this.toggleTimecodeButton.Image = ((System.Drawing.Image)(resources.GetObject("toggleTimecodeButton.Image")));
-            this.toggleTimecodeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toggleTimecodeButton.Name = "toggleTimecodeButton";
-            this.toggleTimecodeButton.Size = new System.Drawing.Size(46, 22);
-            this.toggleTimecodeButton.Text = "Toggle";
-            this.toggleTimecodeButton.Click += new System.EventHandler(this.ToolStripButton1_Click_1);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // warningFlashTimer
-            // 
-            this.warningFlashTimer.Tick += new System.EventHandler(this.WarningFlashTimer_Tick);
             // 
             // toolStripLabel3
             // 
@@ -213,26 +199,86 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
+            // applyTCbutton
+            // 
+            this.applyTCbutton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.applyTCbutton.Image = ((System.Drawing.Image)(resources.GetObject("applyTCbutton.Image")));
+            this.applyTCbutton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.applyTCbutton.Name = "applyTCbutton";
+            this.applyTCbutton.Size = new System.Drawing.Size(90, 22);
+            this.applyTCbutton.Text = "Apply and lock";
+            this.applyTCbutton.Click += new System.EventHandler(this.ApplyTCbutton_Click);
+            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
+            // toggleTimecodeButton
+            // 
+            this.toggleTimecodeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toggleTimecodeButton.Enabled = false;
+            this.toggleTimecodeButton.Image = ((System.Drawing.Image)(resources.GetObject("toggleTimecodeButton.Image")));
+            this.toggleTimecodeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toggleTimecodeButton.Name = "toggleTimecodeButton";
+            this.toggleTimecodeButton.Size = new System.Drawing.Size(46, 19);
+            this.toggleTimecodeButton.Text = "Toggle";
+            this.toggleTimecodeButton.Click += new System.EventHandler(this.ToolStripButton1_Click_1);
+            // 
+            // warningFlashTimer
+            // 
+            this.warningFlashTimer.Tick += new System.EventHandler(this.WarningFlashTimer_Tick);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 25);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.timecode_lbl);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
+            this.splitContainer1.Size = new System.Drawing.Size(654, 536);
+            this.splitContainer1.SplitterDistance = 268;
+            this.splitContainer1.TabIndex = 8;
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(208, 6);
+            // 
+            // deleteSelectedItemInListToolStripMenuItem
+            // 
+            this.deleteSelectedItemInListToolStripMenuItem.Name = "deleteSelectedItemInListToolStripMenuItem";
+            this.deleteSelectedItemInListToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.deleteSelectedItemInListToolStripMenuItem.Text = "Delete selected item in list";
+            this.deleteSelectedItemInListToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedItemInListToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(694, 486);
+            this.ClientSize = new System.Drawing.Size(654, 561);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.timecode_lbl);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(670, 600);
             this.Name = "Form1";
             this.Text = "MTC Timecode for Companion";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -259,6 +305,9 @@
         private System.Windows.Forms.ToolStripTextBox companionIPbox;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem deleteSelectedItemInListToolStripMenuItem;
     }
 }
 

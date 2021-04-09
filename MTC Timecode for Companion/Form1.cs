@@ -36,6 +36,11 @@ namespace MTC_Timecode_for_Companion
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //GUI
+            splitContainer1.SplitterDistance = 45;
+            splitContainer1.FixedPanel = FixedPanel.Panel1;
+
+
             nextEvent.Hour = 99;
             nextEvent.Minute = 99;
             nextEvent.Second = 99;
@@ -278,6 +283,28 @@ namespace MTC_Timecode_for_Companion
         private void WarningFlashTimer_Tick(object sender, EventArgs e)
         {
             timecode_lbl.ForeColor = ((timecode_lbl.ForeColor == Color.Red) ? Color.Black : Color.Red);
+        }
+
+        private void deleteSelectedItemInListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string box_msg = ("Do you want to DELETE this row from the cue list?");
+                string box_title = "Are you sure?";
+                DialogResult result = MessageBox.Show(box_msg, box_title, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+
+                        data.TimecodeEventList.RemoveAt(dataGridView1.CurrentCell.RowIndex);
+                        ReloadDataGridView();
+
+
+        }
+            }
+            catch
+            {
+                MessageBox.Show("No row was selected, or there was a problem deleting the row.", "No row selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
     }
 }
