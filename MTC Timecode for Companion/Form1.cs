@@ -229,7 +229,7 @@ namespace MTC_Timecode_for_Companion
         private void FpsDropdown_TextChanged(object sender, EventArgs e)
         {
             data.fpsDropdownIndex = fpsDropdown.SelectedIndex;
-            TimestampTools.SetFPS(int.Parse(fpsDropdown.Text));
+            TimestampTools.SetFPS(fpsDropdown.Text);
             
         }
 
@@ -244,7 +244,7 @@ namespace MTC_Timecode_for_Companion
                 companion.Ip = data.companionIP;
 
                 mtc.inputDevice = MidiTimecode.GetInputDevices()[inputdevice.SelectedIndex];
-                mtc.inputFPS = int.Parse(fpsDropdown.Text);
+                mtc.inputFPS = fpsDropdown.Text;
                 mtc.inputOffset = 0;
                 mtc.Initialize();
                 inputdevice.Enabled = false;
@@ -253,11 +253,31 @@ namespace MTC_Timecode_for_Companion
                 companionIPbox.Enabled = false;
                 toggleTimecodeButton.Enabled = true;
                 //dataGridView1.ReadOnly = true;
-                
+                int localFPS = 0;
+                switch (fpsDropdown.Text)
+                {
+                    case "23.976ND":
+                        localFPS = 24;
+                        break;
+                    case "24":
+                        localFPS = 24;
+                        break;
+                    case "25":
+                        localFPS = 25;
+                        break;
+                    case "29.97DF":
+                        localFPS = 30;
+                        break;
+                    case "29.97ND":
+                        localFPS = 30;
+                        break;
+                    case "30":
+                        localFPS = 30;
+                        break;
+                }
+                tcSmooth.Initialize(localFPS);
 
-                tcSmooth.Initialize(int.Parse(fpsDropdown.Text));
-
-                tcTimer.Interval = tcSmooth.FpsToMs(int.Parse(fpsDropdown.Text));
+                tcTimer.Interval = tcSmooth.FpsToMs(localFPS);
                 tcTimer.Enabled = true;
             }
         }

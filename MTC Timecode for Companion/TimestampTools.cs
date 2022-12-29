@@ -9,7 +9,32 @@ namespace MTC_Timecode_for_Companion
     class TimestampTools
     {
         private static int localFPS = 25;
-        public static void SetFPS(int fps) { localFPS = fps; }
+        
+        public static void SetFPS(string fps) { 
+        
+            switch(fps)
+            {
+                case "23.976ND":
+                    localFPS= 24;
+                    break;
+                case "24":
+                    localFPS = 24;
+                    break;
+                case "25":
+                    localFPS = 25;
+                    break;
+                case "29.97DF":
+                    localFPS = 30;
+                    break;
+                case "29.97ND":
+                    localFPS = 30;
+                    break;
+                case "30":
+                    localFPS = 30;
+                    break;
+            }
+
+        }
         public static string TimecodeToString(int[] timecode)
         {
             if (timecode.Length != 4) { Console.WriteLine("Error converting timecode to string! Wrong array length."); return "00:00:00:00"; }

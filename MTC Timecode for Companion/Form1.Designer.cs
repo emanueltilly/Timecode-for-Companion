@@ -37,6 +37,8 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.openProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteSelectedItemInListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.inputdevice = new System.Windows.Forms.ToolStripComboBox();
@@ -51,8 +53,6 @@
             this.toggleTimecodeButton = new System.Windows.Forms.ToolStripButton();
             this.warningFlashTimer = new System.Windows.Forms.Timer(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.deleteSelectedItemInListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -66,7 +66,7 @@
             this.timecode_lbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.timecode_lbl.AutoSize = true;
             this.timecode_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timecode_lbl.Location = new System.Drawing.Point(223, 3);
+            this.timecode_lbl.Location = new System.Drawing.Point(235, 3);
             this.timecode_lbl.Name = "timecode_lbl";
             this.timecode_lbl.Size = new System.Drawing.Size(210, 39);
             this.timecode_lbl.TabIndex = 2;
@@ -86,7 +86,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridView1.Size = new System.Drawing.Size(654, 264);
+            this.dataGridView1.Size = new System.Drawing.Size(679, 264);
             this.dataGridView1.TabIndex = 4;
             // 
             // toolStrip1
@@ -107,7 +107,7 @@
             this.toggleTimecodeButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(654, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(679, 25);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -139,6 +139,18 @@
             this.saveProjectToolStripMenuItem.Text = "Save Project";
             this.saveProjectToolStripMenuItem.Click += new System.EventHandler(this.SaveProjectToolStripMenuItem_Click);
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(208, 6);
+            // 
+            // deleteSelectedItemInListToolStripMenuItem
+            // 
+            this.deleteSelectedItemInListToolStripMenuItem.Name = "deleteSelectedItemInListToolStripMenuItem";
+            this.deleteSelectedItemInListToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
+            this.deleteSelectedItemInListToolStripMenuItem.Text = "Delete selected item in list";
+            this.deleteSelectedItemInListToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedItemInListToolStripMenuItem_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -166,14 +178,16 @@
             // fpsDropdown
             // 
             this.fpsDropdown.AutoSize = false;
+            this.fpsDropdown.DropDownWidth = 80;
             this.fpsDropdown.Items.AddRange(new object[] {
+            "23.976ND",
             "24",
             "25",
-            "30",
-            "50",
-            "60"});
+            "29.97DF",
+            "29.97ND",
+            "30"});
             this.fpsDropdown.Name = "fpsDropdown";
-            this.fpsDropdown.Size = new System.Drawing.Size(50, 23);
+            this.fpsDropdown.Size = new System.Drawing.Size(70, 23);
             this.fpsDropdown.Click += new System.EventHandler(this.ToolStripButton1_Click_1);
             this.fpsDropdown.TextChanged += new System.EventHandler(this.FpsDropdown_TextChanged);
             // 
@@ -243,27 +257,15 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer1.Size = new System.Drawing.Size(654, 536);
+            this.splitContainer1.Size = new System.Drawing.Size(679, 536);
             this.splitContainer1.SplitterDistance = 268;
             this.splitContainer1.TabIndex = 8;
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(208, 6);
-            // 
-            // deleteSelectedItemInListToolStripMenuItem
-            // 
-            this.deleteSelectedItemInListToolStripMenuItem.Name = "deleteSelectedItemInListToolStripMenuItem";
-            this.deleteSelectedItemInListToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
-            this.deleteSelectedItemInListToolStripMenuItem.Text = "Delete selected item in list";
-            this.deleteSelectedItemInListToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedItemInListToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(654, 561);
+            this.ClientSize = new System.Drawing.Size(679, 561);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

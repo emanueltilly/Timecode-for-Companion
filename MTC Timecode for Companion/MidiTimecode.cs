@@ -2,6 +2,8 @@
 using System.Linq;
 using Melanchall.DryWetMidi.Devices;
 using Melanchall.DryWetMidi.Core;
+using System.Diagnostics;
+using System.Collections;
 
 class MidiTimecode
 {
@@ -10,9 +12,12 @@ class MidiTimecode
 
     // Public Settings
     public InputDevice inputDevice;
-    public double inputFPS;
+    public string inputFPS;
     public double inputOffset;
     public TimeSnap timeSnap;
+
+    private double fps;
+    private int hourSubtractor;
 
     // Time Data
     byte flsb, fmsb, slsb, smsb, mlsb, mmsb, hlsb, hmsb;
@@ -23,13 +28,43 @@ class MidiTimecode
     // Initialize Listener
     public void Initialize() // Run After Ever Settings Change And On Start
     {
+        //Set correct fps and multiplier
+        switch (inputFPS)
+        {
+            case "23.976ND":
+                fps = 23.976;
+                hourSubtractor= 0;
+                break;
+            case "24":
+                fps = 24;
+                hourSubtractor = 0;
+                break;
+            case "25":
+                fps = 25;
+                hourSubtractor = 2;
+                break;
+            case "29.97DF":
+                fps = 29.97;
+                hourSubtractor = 4;
+                break;
+            case "29.97ND":
+                fps = 29.97;
+                hourSubtractor = 6;
+                break;
+            case "30":
+                fps = 30;
+                hourSubtractor = 6;
+                break;
+        }
+
+
         if (inputDevice != null && inputDevice.IsListeningForEvents)
         {
             inputDevice.StopEventsListening();
             timeSnap = new TimeSnap(0d);
         }
 
-        timeSnap = new TimeSnap(inputFPS, inputOffset);
+        timeSnap = new TimeSnap(fps, inputOffset);
         inputDevice.EventReceived += InputDevice_EventReceived;
         inputDevice.StartEventsListening();
     }
@@ -53,7 +88,9 @@ class MidiTimecode
                 int frames = Convert.ToInt32(Convert.ToString(fmsb, 2).PadLeft(4, '0') + Convert.ToString(flsb, 2).PadLeft(4, '0'), 2);
                 int seconds = Convert.ToInt32(Convert.ToString(smsb, 2).PadLeft(4, '0') + Convert.ToString(slsb, 2).PadLeft(4, '0'), 2);
                 int minutes = Convert.ToInt32(Convert.ToString(mmsb, 2).PadLeft(4, '0') + Convert.ToString(mlsb, 2).PadLeft(4, '0'), 2);
-                int hours = Convert.ToInt32(Convert.ToString(hlsb, 2).PadLeft(8, '0'), 2);
+                //int hours = Convert.ToInt32(Convert.ToString(hlsb, 2).PadLeft(8, '0'), 2);
+                int hours = (hlsb + ((hmsb - hourSubtractor) * 16));
+
                 timeSnap.Update(hours, minutes, seconds, frames);
                 for (int i = 0; i < valuesSet.Length; i++) valuesSet[i] = false;
             }
