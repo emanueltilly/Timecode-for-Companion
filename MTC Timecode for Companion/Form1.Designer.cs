@@ -53,6 +53,8 @@
             this.toggleTimecodeButton = new System.Windows.Forms.ToolStripButton();
             this.warningFlashTimer = new System.Windows.Forms.Timer(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.companionPortTextbox = new System.Windows.Forms.ToolStripTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -66,7 +68,7 @@
             this.timecode_lbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.timecode_lbl.AutoSize = true;
             this.timecode_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timecode_lbl.Location = new System.Drawing.Point(235, 3);
+            this.timecode_lbl.Location = new System.Drawing.Point(298, 3);
             this.timecode_lbl.Name = "timecode_lbl";
             this.timecode_lbl.Size = new System.Drawing.Size(210, 39);
             this.timecode_lbl.TabIndex = 2;
@@ -86,7 +88,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridView1.Size = new System.Drawing.Size(679, 264);
+            this.dataGridView1.Size = new System.Drawing.Size(805, 264);
             this.dataGridView1.TabIndex = 4;
             // 
             // toolStrip1
@@ -101,13 +103,15 @@
             this.toolStripSeparator2,
             this.toolStripLabel3,
             this.companionIPbox,
+            this.toolStripLabel4,
+            this.companionPortTextbox,
             this.toolStripSeparator3,
             this.applyTCbutton,
             this.toolStripSeparator4,
             this.toggleTimecodeButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(679, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(805, 25);
             this.toolStrip1.TabIndex = 7;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -235,7 +239,7 @@
             this.toggleTimecodeButton.Image = ((System.Drawing.Image)(resources.GetObject("toggleTimecodeButton.Image")));
             this.toggleTimecodeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toggleTimecodeButton.Name = "toggleTimecodeButton";
-            this.toggleTimecodeButton.Size = new System.Drawing.Size(46, 19);
+            this.toggleTimecodeButton.Size = new System.Drawing.Size(46, 22);
             this.toggleTimecodeButton.Text = "Toggle";
             this.toggleTimecodeButton.Click += new System.EventHandler(this.ToolStripButton1_Click_1);
             // 
@@ -257,15 +261,27 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer1.Size = new System.Drawing.Size(679, 536);
+            this.splitContainer1.Size = new System.Drawing.Size(805, 536);
             this.splitContainer1.SplitterDistance = 268;
             this.splitContainer1.TabIndex = 8;
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(32, 22);
+            this.toolStripLabel4.Text = "Port:";
+            // 
+            // companionPortTextbox
+            // 
+            this.companionPortTextbox.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.companionPortTextbox.Name = "companionPortTextbox";
+            this.companionPortTextbox.Size = new System.Drawing.Size(100, 25);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(679, 561);
+            this.ClientSize = new System.Drawing.Size(805, 561);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -310,6 +326,8 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem deleteSelectedItemInListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripTextBox companionPortTextbox;
     }
 }
 

@@ -73,6 +73,7 @@ namespace MTC_Timecode_for_Companion
             fpsDropdown.SelectedIndex = data.fpsDropdownIndex;
 
             companionIPbox.Text = data.companionIP;
+            companionPortTextbox.Text = data.companionPort.ToString();
 
             dataGridView1.Columns[0].Width = 50;
             dataGridView1.Columns[1].Width = 50;
@@ -235,13 +236,15 @@ namespace MTC_Timecode_for_Companion
 
         private void ApplyTCbutton_Click(object sender, EventArgs e)
         {
-            if (inputdevice.SelectedIndex >= 0 && fpsDropdown.SelectedIndex >= 0 && companionIPbox.Text != null)
+            if (inputdevice.SelectedIndex >= 0 && fpsDropdown.SelectedIndex >= 0 && companionIPbox.Text != null && companionPortTextbox.Text != null)
             {
                 RecalculateRealFrameForList();
                 ResetExecutedForList();
 
                 data.companionIP = companionIPbox.Text;
+                data.companionPort = int.Parse(companionPortTextbox.Text.Trim());
                 companion.Ip = data.companionIP;
+                companion.Port = data.companionPort;
 
                 mtc.inputDevice = MidiTimecode.GetInputDevices()[inputdevice.SelectedIndex];
                 mtc.inputFPS = fpsDropdown.Text;
@@ -251,6 +254,7 @@ namespace MTC_Timecode_for_Companion
                 fpsDropdown.Enabled = false;
                 applyTCbutton.Enabled = false;
                 companionIPbox.Enabled = false;
+                companionPortTextbox.Enabled = false;
                 toggleTimecodeButton.Enabled = true;
                 //dataGridView1.ReadOnly = true;
                 int localFPS = 0;
