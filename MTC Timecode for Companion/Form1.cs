@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -53,18 +54,8 @@ namespace MTC_Timecode_for_Companion
                 inputdevice.Items.Add(device.Name);
 
 
-
-            //Create dummy objects
-            /*int loop = 0;
-            while (loop < 20)
-            {
-                data.TimecodeEventList.Add(new TimecodeEvent());
-                
-                loop++;
-            }*/
-
             LoadGUIfromData();
-
+            dataGridView1.CellFormatting += dataGridView1_CellFormatting; //Row coloring
         }
 
         private void LoadGUIfromData()
@@ -99,6 +90,17 @@ namespace MTC_Timecode_for_Companion
             };
             dataGridView1.DataSource = source;
         }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            var timecodeEvent = dataGridView1.Rows[e.RowIndex].DataBoundItem as TimecodeEvent;
+
+            if (timecodeEvent != null)
+            {
+                dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = timecodeEvent.color.selectedColor.value;
+            }
+        }
+
 
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -330,5 +332,86 @@ namespace MTC_Timecode_for_Companion
                 MessageBox.Show("No row was selected, or there was a problem deleting the row.", "No row selected", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
+
+        public void ChangeColorOfSelectedRow(Color newColor)
+        {
+            if (dataGridView1.SelectedRows.Count > 0) // Check if there is a row selected
+            {
+                var selectedRow = dataGridView1.SelectedRows[0]; // Get the first selected row
+                var timecodeEvent = selectedRow.DataBoundItem as TimecodeEvent; // Get the data bound item
+
+                if (timecodeEvent != null)
+                {
+                    timecodeEvent.color.selectedColor.value = newColor; // Change the color
+
+                    dataGridView1.Refresh(); // Refresh the DataGridView so the change takes effect
+                }
+            }
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void rowColorButton_Click(object sender, EventArgs e)
+        {
+            
+
+            //Set color of row
+            if (dataGridView1.CurrentCell != null) // Check if there is a cell selected
+            {
+                //Get user requested color
+                string colorName = ShowColorpickerDialogBox(new RowColorAssignment().getAvailableColors());
+                Debug.WriteLine(colorName);
+
+                int rowIndex = dataGridView1.CurrentCell.RowIndex;
+                DataGridViewRow selectedRow = dataGridView1.Rows[rowIndex]; // Get the row of the selected cell
+
+                var timecodeEvent = selectedRow.DataBoundItem as TimecodeEvent; // Get the data bound item
+
+                if (timecodeEvent != null)
+                {
+                    timecodeEvent.color.setColor(colorName);
+
+                    dataGridView1.Refresh(); // Refresh the DataGridView so the change takes effect
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a cell of a row to set the color.", "No row selected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+
+        public string ShowColorpickerDialogBox(List<string> dropdownList)
+        {
+            // Create a new form dynamically
+            Form prompt = new Form();
+            prompt.Width = 200;
+            prompt.Height = 150;
+            prompt.FormBorderStyle = FormBorderStyle.FixedDialog;
+            prompt.Text = "Select color";
+            prompt.StartPosition = FormStartPosition.CenterScreen;
+
+            // Create dropdown and add items
+            ComboBox dropdown = new ComboBox() { Left = 30, Top = 20, Width = 120 };
+            foreach (string item in dropdownList)
+            {
+                dropdown.Items.Add(item);
+            }
+            dropdown.SelectedIndex = 0;
+
+            // Create confirmation button and DialogResult
+            Button confirmation = new Button() { Text = "Ok", Left = 70, Width = 50, Top = 70, DialogResult = DialogResult.OK };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(dropdown);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? dropdown.SelectedItem.ToString() : "";
+        }
+
     }
 }
