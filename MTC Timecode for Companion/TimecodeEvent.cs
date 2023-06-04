@@ -25,6 +25,7 @@ namespace MTC_Timecode_for_Companion
         private bool executed = false;
         private bool oneShot = false;
         private Int32 lastExecution = 0;
+        public RowColorAssignment color = new RowColorAssignment();
 
         public TimecodeEvent()
         {
